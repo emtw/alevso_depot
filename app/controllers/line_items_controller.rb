@@ -1,4 +1,7 @@
 class LineItemsController < ApplicationController
+  
+  skip_before_filter :authorize, only: :create
+  
   # GET /line_items
   # GET /line_items.json
   def index
@@ -46,7 +49,8 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item.cart }
+        format.html { redirect_to store_url }
+        format.js { @current_item = @line_item }
         format.json { render json: @line_item,
           status: :created, location: @line_item }
       else
@@ -80,8 +84,49 @@ class LineItemsController < ApplicationController
     @line_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to line_items_url }
-      format.json { head :no_content }
+      if current_cart.line_items.empty?
+        format.html { redirect_to(store_url, :notice=> 'Your cart is empty') }
+      else 
+        format.html { redirect_to(current_cart, :notice=> 'Item Removed') } 
+      end
+
+      format.xml  { head :ok }
+    end
+  end
+  
+  # PUT /line_items/1
+  # PUT /line_items/1.json
+  def decrease
+    @cart = current_cart
+    @line_item = @cart.decrease(params[:id])
+
+    respond_to do |format|
+      if @line_item.save
+        format.html { redirect_to store_path, notice: 'Line item was successfully updated.' }
+        format.js   { @current_item = @line_item }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /line_items/1
+  # PUT /line_items/1.json
+  def increase
+    @cart = current_cart
+    @line_item = @cart.increase(params[:id])
+
+    respond_to do |format|
+      if @line_item.save
+        format.html { redirect_to store_path, notice: 'Line item was successfully updated.' }
+        format.js   { @current_item = @line_item }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
     end
   end
 end
