@@ -24,6 +24,7 @@ class CustomersController < ApplicationController
       redirect_to customer_path(session[:customer_id]), notice: 'Access denied. Please login to view this account.'
     else
       @customer = Customer.find(params[:id])
+      @title = @customer.name
       
     respond_to do |format|
       format.html # show.html.erb
