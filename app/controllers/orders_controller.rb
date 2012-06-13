@@ -51,6 +51,8 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+    customer_id = Customer.new(params[:customer_id])
+    current_user = session[:customer_id]
     @order = Order.new(params[:order])
     @order.add_line_items_from_cart(current_cart)
 

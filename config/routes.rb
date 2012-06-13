@@ -1,11 +1,18 @@
 Depot::Application.routes.draw do
+  resources :customers
+
   get 'admin' => 'admin#index'
+  
+  get 'account' => 'customers#show'
+  
+  match'/signup', :to => 'customers#new'
 
   controller :sessions do
     get  'login' => :new
     post 'login' => :create
     delete 'logout' => :destroy
   end
+  
 
   resources :users
 

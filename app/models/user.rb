@@ -1,7 +1,10 @@
+require 'mail'
 class User < ActiveRecord::Base
-  attr_accessible :name, :password, :password_confirmation
+  include ActiveModel::Validations
+  attr_accessible :name, :password, :password_confirmation, :email
   
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :email, presence:true, :uniqueness => {:case_sensitive => false}, :email => true
   has_secure_password
   
   after_destroy :ensure_an_admin_remains

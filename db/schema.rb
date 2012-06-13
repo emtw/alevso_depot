@@ -11,12 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120611135849) do
+ActiveRecord::Schema.define(:version => 20120612143033) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "customers", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
 
   create_table "line_items", :force => true do |t|
     t.integer  "product_id"
@@ -33,9 +44,10 @@ ActiveRecord::Schema.define(:version => 20120611135849) do
     t.text     "address"
     t.string   "email"
     t.string   "pay_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.datetime "ship_date"
+    t.integer  "customer_id"
   end
 
   create_table "products", :force => true do |t|
@@ -52,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20120611135849) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "email"
   end
 
 end

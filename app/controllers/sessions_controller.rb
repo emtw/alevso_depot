@@ -4,17 +4,27 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_name(params[:name])
+    user = User.find_by_email(params[:email])
+    customer = Customer.find_by_email(params[:email])
+    
     if user and user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to admin_url
+    
+    elsif customer and customer.authenticate(params[:password])
+      session[:customer_id] = customer.id
+      redirect_to customers_url  
+    
     else
       redirect_to login_url, alert: "Invalid user/password combination"
     end
+    
+    
   end
 
   def destroy
     session[:user_id] = nil
+    session[:customer_id] = nil
     redirect_to store_url, notice: "Logged out"
   end
 end

@@ -11,13 +11,19 @@ class ApplicationController < ActionController::Base
       session[:cart_id] = cart.id
       cart
     end
+    
+    def current_cust
+      Customer.find(session[:customer_id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to login_url, notice: "Please log in"
+    end
 
   protected
 
     def authorize
-      unless User.find_by_id(session[:user_id])
+      unless User.find_by_id(session[:user_id]) || Customer.find_by_id(session[:customer_id])
         redirect_to login_url, notice: "Please log in"
       end
     end
-
+    
 end
