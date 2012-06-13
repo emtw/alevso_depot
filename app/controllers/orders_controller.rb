@@ -99,12 +99,17 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
+    if !session[:user_id]
+      redirect_to customers_path, notice: 'Please contact us if you wish to cancel an order.'
+    return
+    else
     @order = Order.find(params[:id])
     @order.destroy
 
     respond_to do |format|
       format.html { redirect_to orders_url }
       format.json { head :no_content }
+    end
     end
   end
 end
