@@ -16,5 +16,4 @@ class Order < ActiveRecord::Base
     end
   end
   
-  default_scope :order => 'orders.created_at DESC'
 end
