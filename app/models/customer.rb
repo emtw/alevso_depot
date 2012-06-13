@@ -5,6 +5,7 @@ class Customer < ActiveRecord::Base
   
   has_many :orders
   
+  validates :name, presence:true, :length => { :maximum => 50 }
   validates :email, presence:true, :uniqueness => {:case_sensitive => false}, :email => true
   validates :address, presence:true
   has_secure_password

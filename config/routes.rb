@@ -5,6 +5,8 @@ Depot::Application.routes.draw do
   
   get 'account' => 'customers#show'
   
+  match '/account', :to => 'customers#show'
+  
   match'/signup', :to => 'customers#new'
 
   controller :sessions do

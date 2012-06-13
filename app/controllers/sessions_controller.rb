@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     
     elsif customer and customer.authenticate(params[:password])
       session[:customer_id] = customer.id
-      redirect_to customers_url  
+      redirect_to customer_path(session[:customer_id]) 
     
     else
       redirect_to login_url, alert: "Invalid user/password combination"

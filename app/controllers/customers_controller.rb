@@ -4,22 +4,31 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
+    if !session[:user_id]
+      redirect_to customer_path(session[:customer_id]) , notice: 'Access Denied'
+    return
+    else
     @customers = Customer.all
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @customers }
     end
+    end
   end
 
   # GET /customers/1
   # GET /customers/1.json
   def show
-    @customer = Customer.find(params[:id])
-
+    if customer_path(session[:customer_id])!=customer_path
+      redirect_to customer_path(session[:customer_id]), notice: 'Access denied. Please login to view this account.'
+    else
+      @customer = Customer.find(params[:id])
+      
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @customer }
+    end
     end
   end
 
@@ -62,7 +71,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.update_attributes(params[:customer])
-        format.html { redirect_to customers_url, notice: 'Your account was successfully updated.' }
+        format.html { redirect_to customer_path(session[:customer_id]), notice: 'Your account was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
