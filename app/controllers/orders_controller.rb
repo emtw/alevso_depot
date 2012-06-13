@@ -6,9 +6,13 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
+    if !session[:user_id]
+      redirect_to customers_path, notice: 'Please login to access this area.'
+      return
+     else
     @orders = Order.paginate page: params[:page], order: 'created_at desc',
       per_page: 10
-
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @orders }

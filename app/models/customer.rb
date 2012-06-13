@@ -1,7 +1,7 @@
 require 'mail'
 class Customer < ActiveRecord::Base
   include ActiveModel::Validations
-  attr_accessible :address, :email, :id, :name, :password, :password_confirmation
+  attr_accessible :address, :email, :name, :password, :password_confirmation
   
   has_many :orders
   

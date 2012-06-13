@@ -3,8 +3,12 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
+    if !session[:user_id]
+      redirect_to customers_path, notice: 'Please login to access this area.'
+    return
+    else
     @products = Product.all
-
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }

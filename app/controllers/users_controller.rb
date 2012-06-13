@@ -4,8 +4,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    if !session[:user_id]
+      redirect_to customers_path, notice: 'Please login to access this area.'
+      return
+    else
     @users = User.order(:name)
-
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }

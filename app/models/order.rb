@@ -15,4 +15,6 @@ class Order < ActiveRecord::Base
       line_items << item
     end
   end
+  
+  default_scope :order => 'orders.created_at DESC'
 end
