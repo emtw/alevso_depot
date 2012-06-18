@@ -13,6 +13,24 @@
   <b>Email:</b>
   <%= @customer.email %>
 </p>
+<br />
+
+<h3>Your Orders:</h3>
+<table>
+	<th>Date</th>
+	<th>Order No.</th>
+	<th>View Order</th>
+	<% @customer.orders.each do |order| %>
+		<tr>
+			<td><%= order.created_at.strftime("%d %b. %Y")
+ %></td>
+			<td><%= order.id %></td>
+			<% order.line_items.each do |line_item| %>
+			<td><%= link_to 'Show',  "../orders/#{order.id}" %></td>
+			<% end %>
+		</tr>
+	<% end %>
+</table>
 
 
 

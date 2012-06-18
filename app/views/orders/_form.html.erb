@@ -10,6 +10,10 @@
       </ul>
     </div>
   <% end %>
+  
+  <div class="field">
+  <%= f.hidden_field :customer_id, :value => session[:customer_id] %>
+  </div>
 
   <div class="field">
     <%= f.label :name %><br />

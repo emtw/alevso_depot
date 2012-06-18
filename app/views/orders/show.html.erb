@@ -22,6 +22,11 @@
   <%= @order.pay_type %>
 </p>
 
+<% if session[:customer_id] %>
+<%= link_to 'Back', "../customers/#{session[:customer_id]}" %>
+<% end %>
 
+<% if session[:user_id] %>
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
+<% end %>

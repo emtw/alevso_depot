@@ -22,17 +22,29 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    
     @order = Order.find(params[:id])
-
+    
+      if session[:user_id]
+      @order = Order.find(params[:id])  
+     
+     elsif session[:customer_id] != @order.customer_id
+       redirect_to customers_path(session[:customer_id])
+       return
+          
+    else
+          
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @order }
+      end
     end
   end
 
   # GET /orders/new
   # GET /orders/new.json
   def new
+    @customer_id = session[:customer_id]
     @cart = current_cart
     if @cart.line_items.empty?
       redirect_to store_url, notice: "Your cart is empty"
