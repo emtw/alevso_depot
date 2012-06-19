@@ -1,6 +1,6 @@
 <h1>Welcome</h1><br />
 
-It's <%= Time.now %>.<br /><br />
-We have <strong><%= pluralize(@total_orders, "order") %></strong>.
 
-<%= button_to 'Logout', logout_path, method: :delete %>
+It's <%= Time.now.strftime("%A, %d %B %Y, %I:%M %p") %>.
+<br /><br />
+We have <strong><%= pluralize(@total_orders, "order") %></strong>.

@@ -49,10 +49,9 @@
 <br />
 
 <% if session[:customer_id] %>
-<%= button_to 'Back', "../customers/#{session[:customer_id]}", method: :get  %>
+<%= button_to 'Back', customer_path(session[:customer_id]), method: :get  %>
 <% end %>
 
 <% if session[:user_id] %>
-<%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
 <% end %>

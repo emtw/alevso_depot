@@ -25,7 +25,9 @@ class CustomersController < ApplicationController
       redirect_to customer_path(session[:customer_id]), notice: 'Access denied. Please login to view this account.'
     else
       @customer = Customer.find(params[:id])
-      @order = @customer.orders
+      @orders = @customer.orders.paginate page: params[:page], order: 'id desc',
+      per_page: 5
+
       
     respond_to do |format|
       format.html # show.html.erb

@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
       redirect_to customers_path, notice: 'Please login to access this area.'
       return
      else
-    @orders = Order.paginate page: params[:page], order: 'created_at desc',
+    @orders = Order.paginate page: params[:page], order: 'id',
       per_page: 10
     end
     respond_to do |format|

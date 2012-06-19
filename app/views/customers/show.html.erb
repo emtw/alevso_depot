@@ -23,14 +23,16 @@
 	<th>Date</th>
 	<th>Order No.</th>
 	<th>View Order</th>
-	<% @customer.orders.each do |order| %>
+	<% @orders.each do |order| %>
 		<tr>
 			<td><%= order.created_at.strftime("%d %b. %Y") %></td>
 			<td><%= order.id %></td>
-			<td><%= link_to 'Show',  "../orders/#{order.id}" %></td>
+			<td><%= link_to 'Show',  order_path(order) %></td>
 		</tr>
-	<% end %>
+	<% end %>	
 </table>
+
+<p><%= will_paginate @orders %></p>
 
 
 

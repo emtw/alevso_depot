@@ -1,4 +1,8 @@
 Depot::Application.routes.draw do
+  
+  
+  resources :orders
+  
   resources :customers
 
   get 'admin' => 'admin#index'
@@ -17,8 +21,6 @@ Depot::Application.routes.draw do
   
 
   resources :users
-
-  resources :orders
 
   resources :line_items
 

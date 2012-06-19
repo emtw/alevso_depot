@@ -7,7 +7,8 @@ class ProductsController < ApplicationController
       redirect_to customers_path, notice: 'Please login to access this area.'
     return
     else
-    @products = Product.all
+    @products = Product.paginate page: params[:page], order: 'title',
+      per_page: 10
     
     respond_to do |format|
       format.html # index.html.erb
