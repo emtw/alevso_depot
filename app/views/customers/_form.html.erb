@@ -14,14 +14,13 @@
   <% end %>
 
 <fieldset>
-<legend>If you are a new customer, please register here. If you are an existing customer, please log in.</legend>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, 'Full Name' %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
     <%= f.label :address %><br />
-    <%= f.text_field :address %>
+    <%= f.text_area :address, :rows=>6 %>
   </div>
   <div class="field">
     <%= f.label :email %><br />

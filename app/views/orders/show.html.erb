@@ -21,9 +21,35 @@
   <b>Pay type:</b>
   <%= @order.pay_type %>
 </p>
+<p>
+	<b>Ordered on:</b>
+	<%= @order.created_at.strftime("%d %B %Y") %>, <%= @order.created_at.strftime("%I:%M %p")%>
+</p>
+<br />
+<table class="order-items">
+	<tr>
+		<th>Picture</th>
+		<th>Product Title</th>
+		<th>Price</th>
+		<th>Quantity</th>
+		<th>Total</th>
+	</tr>
+	
+		<% @order.line_items.each do |line_item| %>
+    <tr>
+    	<td><%= image_tag(line_item.product.image_url) %></td>
+        <td><%= line_item.product.title %></td>
+        <td><%= number_to_currency(line_item.price) %></td>
+        <td><%= line_item.quantity %></td>
+        <td><%= number_to_currency((line_item.price*line_item.quantity))%></td>
+    </tr>
+		<% end %>
+
+</table>
+<br />
 
 <% if session[:customer_id] %>
-<%= link_to 'Back', "../customers/#{session[:customer_id]}" %>
+<%= button_to 'Back', "../customers/#{session[:customer_id]}", method: :get  %>
 <% end %>
 
 <% if session[:user_id] %>

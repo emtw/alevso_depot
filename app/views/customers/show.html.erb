@@ -13,26 +13,25 @@
   <b>Email:</b>
   <%= @customer.email %>
 </p>
+
+<%= link_to 'Change Your Details', edit_customer_path(@customer), method: :get %>
+
 <br />
 
 <h3>Your Orders:</h3>
-<table>
+<table class="order-items">
 	<th>Date</th>
 	<th>Order No.</th>
 	<th>View Order</th>
 	<% @customer.orders.each do |order| %>
 		<tr>
-			<td><%= order.created_at.strftime("%d %b. %Y")
- %></td>
+			<td><%= order.created_at.strftime("%d %b. %Y") %></td>
 			<td><%= order.id %></td>
-			<% order.line_items.each do |line_item| %>
 			<td><%= link_to 'Show',  "../orders/#{order.id}" %></td>
-			<% end %>
 		</tr>
 	<% end %>
 </table>
 
 
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Logout', logout_path, method: :delete %>
+

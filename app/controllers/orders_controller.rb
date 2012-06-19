@@ -44,18 +44,24 @@ class OrdersController < ApplicationController
   # GET /orders/new
   # GET /orders/new.json
   def new
+    
     @customer_id = session[:customer_id]
     @cart = current_cart
     if @cart.line_items.empty?
       redirect_to store_url, notice: "Your cart is empty"
       return
+    else
+    @order = Order.new
     end
     
-    @order = Order.new
+    unless session[:customer_id]
+      redirect_to new_customer_path
+    else
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @order }
+      format.json 
+     end
     end
   end
 
@@ -77,7 +83,7 @@ class OrdersController < ApplicationController
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         OrderNotifier.received(@order).deliver
-        format.html { redirect_to store_url, notice: 'Thank you for your order' }
+        format.html { redirect_to customer_path(session[:customer_id]), notice: 'Thank you for your order' }
         format.json { render json: @order, status: :created, location: @order }
       else
         @cart = current_cart

@@ -1,5 +1,6 @@
 
 class CustomersController < ApplicationController
+  skip_before_filter :authorize, only: [:create, :new]
   
   # GET /customers
   # GET /customers.json
@@ -57,7 +58,8 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to customers_url, notice: "Your account was successfully created." }
+        session[:customer_id] = @customer.id
+        format.html { redirect_to new_order_path, method: :get, notice: "Your account was successfully created." }
         format.json { render json: @customer, status: :created, location: @customer }
       else
         format.html { render action: "new" }

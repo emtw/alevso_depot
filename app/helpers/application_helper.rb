@@ -6,12 +6,4 @@ module ApplicationHelper
     content_tag("div", attributes, &block)
   end
   
-  def show_products
-    @order = Order.find(params[:id])
-    @line_items = @order.line_items
-    @products = @line_items.product
-    
-    
-  end
-  
 end

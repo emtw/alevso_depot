@@ -20,10 +20,14 @@
 				<% end %>			
 			<% end %>
 			<ul>
-				<li><a href="http://www....">Home</a></li>
-				<li><a href="http://www..../faq">Questions</a></li>
-				<li><a href="http://www..../news">News</a></li>
-				<li><a href="http://www..../contact">Contact</a></li>
+				<li><a href="../">Home</a></li>
+				<li><a href="../about.html">About</a></li>
+				<li><a href="../info.html">Information</a></li>
+				<li><a href="../contact.html">Contact Us</a></li>
+				<% if session[:customer_id] %>
+				<br />
+				<li><%= button_to 'My Account', customer_path(session[:customer_id]), method: :get %></li>
+				<% end %>
 			</ul>
 			<% if !session[:user_id] && !session[:customer_id] %>
 			<%= button_to 'Login', login_path %>

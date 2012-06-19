@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
       redirect_to customer_path(session[:customer_id]) 
     
     else
-      redirect_to login_url, alert: "Invalid user/password combination"
+      redirect_to login_url, notice: "Invalid username/password combination"
     end
     
     
